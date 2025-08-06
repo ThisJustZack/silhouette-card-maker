@@ -7,9 +7,9 @@ This plugin reads a decklist, automatically fetches card art from [Lorcast](http
 
 This plugin supports decklist exports from [Dreamborn.ink](https://dreamborn.ink). To learn more, see [here](#formats).
 
-## Basic instructions
+## Basic Instructions
 
-Navigate to the root directory. This plugin is not meant to be run in `plugins/lorcana/`.
+Navigate to the root directory as plugins are not meant to be run in the plugins directory.
 
 If you're on macOS or Linux, open **Terminal**. If you're on Windows, open **PowerShell**.
 
