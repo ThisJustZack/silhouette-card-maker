@@ -117,11 +117,15 @@ Get your PDF at `game/output/game.pdf`.
 
 Plugins streamline the process for acquiring card images for various games.
 
-The Magic: The Gathering plugin supports various decklist formats, including **MTGA**, **MTGO**, **Archidekt**, **Deckstats**, **Moxfield**, and **Scryfall**. To learn more, see [here](plugins/mtg/README.md).
+The [Magic: The Gathering plugin](plugins/mtg/README.md) supports various decklist formats, including **MTGA**, **MTGO**, **Archidekt**, **Deckstats**, **Moxfield**, and **Scryfall**.
 
-The Yu-Gi-Oh! plugin supports **YDK** and **YDKE** formats. To learn more, see [here](plugins/yugioh/README.md).
+The [Yu-Gi-Oh! plugin](plugins/yugioh/README.md) supports **YDK** and **YDKE** formats.
 
-The Lorcana plugin supports **Dreamborn** format. To learn more, see [here](plugins/lorcana/README.md).
+The [Lorcana plugin](plugins/lorcana/README.md) supports **Dreamborn** format.
+
+The [Riftbound plugin](plugins/riftbound/README.md) supports **Tabletop Simulator**, **Pixelborn**, and **Piltover Archive** formats.
+
+The [Altered plugin](plugins/altered/README.md) supports **Ajordat** format.
 
 ### Double-Sided Cards
 
@@ -259,7 +263,7 @@ To determine the required offset, print out `<paper size>_calibration.pdf` with 
 
 Shine a strong light on the front so you can see the shadows on the back. Determine which set of front and back squares are aligned. This set will provide your offset.
 
-Create and start your virtual Python environment and install Python dependencies if you have not done so already. See [here](#basic-instructions) for more information.
+Create and start your virtual Python environment and install Python dependencies if you have not done so already. See [here](#basic-usage) for more information.
 
 Run the script with your offset.
 ```sh
