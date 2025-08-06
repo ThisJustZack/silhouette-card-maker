@@ -7,9 +7,9 @@ This plugin reads a decklist, fetches card art from [ygoprodeck](https://ygoprod
 
 This plugin supports the following decklist formats: `ydk`, `ydke`. To learn more, see [here](#formats).
 
-## Basic instructions
+## Basic Instructions
 
-Navigate to the root directory. This plugin is not meant to be run in `plugins/yugioh/`.
+Navigate to the root directory as plugins are not meant to be run in the plugins directory.
 
 If you're on macOS or Linux, open **Terminal**. If you're on Windows, open **PowerShell**.
 
