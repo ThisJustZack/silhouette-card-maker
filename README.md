@@ -129,7 +129,7 @@ The [Riftbound plugin](plugins/riftbound/README.md) supports **Tabletop Simulato
 
 The [Altered plugin](plugins/altered/README.md) supports **Ajordat** format.
 
-The Flesh and Blood plugin supports **Fabrary** format. To learn more, see [here](plugins/flesh_and_blood/README.md).
+The [Flesh and Blood plugin](plugins/flesh_and_blood/README.md) supports **Fabrary** format.
 
 ### Double-Sided Cards
 
