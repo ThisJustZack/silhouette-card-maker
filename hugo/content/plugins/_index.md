@@ -13,3 +13,4 @@ The following plugins are currently available:
 * [Lorcana]({{% ref "lorcana.md" %}})
 * [Riftbound]({{% ref "riftbound.md" %}})
 * [Altered]({{% ref "altered.md" %}})
+* [Grand Archive]({{% ref "grand_archive.md" %}})
