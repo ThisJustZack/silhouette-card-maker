@@ -13,3 +13,4 @@ The following plugins are currently available:
 * [Lorcana]({{% ref "lorcana.md" %}})
 * [Riftbound]({{% ref "riftbound.md" %}})
 * [Altered]({{% ref "altered.md" %}})
+* [Star Wars Unlimited]({{% ref "star_wars_unlimited.md" %}})
