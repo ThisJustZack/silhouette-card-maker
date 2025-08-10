@@ -129,6 +129,8 @@ The [Riftbound plugin](plugins/riftbound/README.md) supports **Tabletop Simulato
 
 The [Altered plugin](plugins/altered/README.md) supports **Ajordat** format.
 
+The [Grand Archive plugin](plugins/grand_archive/README.md) supports **Silvie** format.
+
 ### Double-Sided Cards
 
 To create double-sided cards, put front images in the `game/front/` folder and back images in the `game/double_sided/` folder. The filenames (and file extensions) must match for each pair.
