@@ -13,3 +13,4 @@ The following plugins are currently available:
 * [Lorcana]({{% ref "lorcana.md" %}})
 * [Riftbound]({{% ref "riftbound.md" %}})
 * [Altered]({{% ref "altered.md" %}})
+* [One Piece]({{% ref "one_piece.md" %}})
