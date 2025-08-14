@@ -1,0 +1,21 @@
+{
+  "name": "Python DevContainer on Ubuntu",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+
+  "features": {
+  },
+  
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+      ],
+      "settings": {
+      }
+    }
+  },
+
+  "postCreateCommand": "python -m venv venv && . venv/bin/activate && pip install -r requirements.txt",
+
+  "remoteUser": "vscode" // runs container as non-root user
+}
