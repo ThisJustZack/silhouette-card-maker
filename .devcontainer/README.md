@@ -21,3 +21,6 @@ After launching the Dev Container, launch the Python virtual environment within 
 
 > [!WARNING]
 > If doing plugin development, then the `Refresh Explorer` button may need to be used after fetching images, as images often do not refresh within the file explorer.
+
+> [!IMPORTANT]
+> If the Python LSP is showing errors for the plugin, then remap the Python environment to the Python virtual environment by hovering on the error,clicking `Quick Fix`, and targeting the Python virtual environment.
