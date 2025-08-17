@@ -25,7 +25,7 @@ Now you can create the PDF using [`create_pdf.py`](../../README.md#create_pdfpy)
 ## CLI Options
 
 ```
-Usage: fetch.py [OPTIONS] DECK_PATH {silvie}
+Usage: fetch.py [OPTIONS] DECK_PATH {omnidex}
 
 Options:
   --help  Show this message and exit.
