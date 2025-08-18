@@ -129,7 +129,7 @@ The [Riftbound plugin](plugins/riftbound/README.md) supports **Tabletop Simulato
 
 The [Altered plugin](plugins/altered/README.md) supports **Ajordat** format.
 
-The [Star Wars Unlimited plugin](plugins/star_wars_unlimited/README.md) supports **JSON**, **Melee**, and **Picklist** formats.
+The [Star Wars Unlimited plugin](plugins/star_wars_unlimited/README.md) supports **SWUDB JSON**, **Melee**, and **Picklist** formats.
 
 ### Double-Sided Cards
 
