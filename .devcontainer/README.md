@@ -16,7 +16,7 @@ Navigate to the directory of this repository on your PC, and click on the parent
 ### Launch the Python virtual environment
 After launching the Dev Container, launch the Python virtual environment within the terminal of `Visual Studio Code` with the following:
 ```bash
-. venv/bin/activate
+source /workspaces/silhouette-card-maker/venv/bin/activate
 ```
 
 > [!WARNING]
