@@ -3,6 +3,7 @@ from importlib import import_module
 from pkgutil import iter_modules
 
 import plugins
+from plugins.plugin_abstraction.command_line_register import RegisterFetchPlugin
 
 @group(name="fetch")
 def fetch_cli() -> None:
@@ -19,6 +20,7 @@ def load_cli_fetch_plugins() -> None:
 
         register = getattr(module, "register_fetch", None)
         if callable(register):
-            register(fetch_cli)
+            register_fetch: RegisterFetchPlugin = register
+            register_fetch(fetch_cli)
 
 load_cli_fetch_plugins()
