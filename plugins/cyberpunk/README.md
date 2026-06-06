@@ -4,6 +4,9 @@ This plugin reads a decklist, fetches the card image from [Cyberpunk 2077 TCG](h
 
 This plugin supports the `limitless` format. To learn more, see [here](#formats).
 
+> [!WARNING]
+> This plugin may have issues since some cards are no longer present on the Cyberpunk website. When this happens, you can add the card's image to the plugin's cache to skip retrieval attempts.
+
 ## Basic Instructions
 
 Navigate to the [root directory](../..) as plugins are not meant to be run in the [plugin directory](.).

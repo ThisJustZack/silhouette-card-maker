@@ -54,4 +54,4 @@ class CookieRunDeckSearcher(DeckSearcherLike[Card]):
 
                 extracted_deck.append(extracted_card)
 
-        return extracted_deck
+        return Deck(cards=extracted_deck)

@@ -3,6 +3,7 @@ from re import compile
 
 from plugins.abstraction_base.application.DeckFormatAdapter import DeckFormat
 from plugins.abstraction_base.domain.Card import Card
+from plugins.abstraction_base.domain.Deck import Deck
 
 class JSONDeckFormat(DeckFormat[Card]):
 
@@ -28,20 +29,18 @@ class JSONDeckFormat(DeckFormat[Card]):
             )
     
     async def parse_decklist(self, decklist):
-        deck = []
+        cards_of_deck = []
 
         data = loads(decklist)
         card_areas = data.get('zones')
-        print(card_areas)
 
         card_index = 0
         for area in card_areas:
             for card in card_areas.get(area):
-                print(card)
                 is_card_line = await self.is_card_line_of_format(card)
                 if is_card_line:
                     card_index += 1
                     card_data = await self.extract_card_data_from_card_line(card, card_index)
-                    deck.append(card_data)
+                    cards_of_deck.append(card_data)
 
-        return deck
+        return Deck(cards=cards_of_deck)

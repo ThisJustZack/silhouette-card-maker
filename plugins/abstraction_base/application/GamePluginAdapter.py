@@ -21,7 +21,7 @@ class GamePlugin(GamePluginLike[Card]):
     async def deduplicate_deck(self, deck: Deck[Card]):
         filtered_deck: OrderedDict[str, Card] = OrderedDict()
 
-        for card in deck:
+        for card in deck.cards:
             if card.id in filtered_deck:
                 existing_card: Card = filtered_deck[card.id]
                 existing_card.quantity += card.quantity
@@ -29,22 +29,22 @@ class GamePlugin(GamePluginLike[Card]):
             else:
                 filtered_deck[card.id] = card
 
-        merged_deck: Deck[Card] = list(filtered_deck.values())
+        merged_deck: Deck[Card] = Deck(cards=list(filtered_deck.values()))
         return merged_deck
     
     async def get_card_images_for_deck(self, deck: Deck[Card]):
-        image_deck = []
+        cards_of_image_deck = []
 
-        for card in deck:
+        for card in deck.cards:
             image_card: Card = card
             image_card.front_image = await self.image_repository.get_image(card)
-            image_deck.append(card)
+            cards_of_image_deck.append(card)
 
-        return image_deck
+        return Deck(cards=cards_of_image_deck)
     
     async def save_deck(self, deck: Deck[Card]):
         await gather(
-            *(to_thread(self.image_repository.save_image, card) for card in deck)
+            *(to_thread(self.image_repository.save_image, card) for card in deck.cards)
         )
 
     async def run(self, decklist: str):

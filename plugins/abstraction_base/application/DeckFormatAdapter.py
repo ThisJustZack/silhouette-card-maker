@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from plugins.abstraction_base.domain.Card import C
+from plugins.abstraction_base.domain.Deck import Deck
 from plugins.abstraction_base.application.DeckFormatPort import DeckFormatLike
 
 class DeckFormat(DeckFormatLike[C]):
@@ -16,7 +17,7 @@ class DeckFormat(DeckFormatLike[C]):
 
     async def parse_decklist(self, decklist: str):
 
-        deck = []
+        cards_of_deck: list[C] = []
 
         card_index = 0
         for line in decklist.strip().split(self.deck_splitter_delimiter):
@@ -24,6 +25,6 @@ class DeckFormat(DeckFormatLike[C]):
             if is_card_line:
                 card_index += 1
                 card_data = await self.extract_card_data_from_card_line(line, card_index)
-                deck.append(card_data)
+                cards_of_deck.append(card_data)
 
-        return deck
+        return Deck(cards=cards_of_deck)

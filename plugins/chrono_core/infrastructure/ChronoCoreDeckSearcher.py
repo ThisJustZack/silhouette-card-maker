@@ -10,13 +10,13 @@ from plugins.abstraction_base.infrastructure.WebRequest import perform_web_reque
 class ChronoCoreDeckSearcher(DeckSearcherLike[Card]):
 
     URL_PATTERN = compile(r'https:\/\/sleeved.gg\/chrono-core\/decks\/(.+)')
-    API_TEMPLATE = 'https://sleeved-api.up.railway.app/decks/{DECK_ID}'
+    API_TEMPLATE = 'https://api.sleeved.gg/decks/{DECK_ID}'
 
     async def is_url_for_deck(self, deck_url: str):
         return bool(self.URL_PATTERN.match(deck_url))
     
     async def extract_deck_from_url(self, deck_url: str):
-        extracted_deck: Deck[Card] = []
+        extraced_cards_of_deck: list[Card]= []
 
         match = self.URL_PATTERN.match(deck_url)
         if match:
@@ -25,7 +25,7 @@ class ChronoCoreDeckSearcher(DeckSearcherLike[Card]):
             api_response = await perform_web_request(api_url_for_deck)
 
             if api_response is None:
-                return extracted_deck
+                return extraced_cards_of_deck
 
             json_of_response = api_response.json()
 
@@ -48,6 +48,6 @@ class ChronoCoreDeckSearcher(DeckSearcherLike[Card]):
                     back_image = None
                 )
 
-                extracted_deck.append(extracted_card)
+                extraced_cards_of_deck.append(extracted_card)
 
-        return extracted_deck
+        return Deck(cards=extraced_cards_of_deck)
