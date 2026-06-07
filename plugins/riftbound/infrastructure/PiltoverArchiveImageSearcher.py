@@ -18,7 +18,6 @@ class PiltoverArchiveImageSearcher(ImageSearcherLike[RiftboundCard]):
 
     async def find_image(self, card: RiftboundCard) -> Optional[CardImage]:
 
-        print(card.id)
         match = self.ALTERNATE_ART_PATTERN.search(card.card_number)
         fallback_url = None if not match else PILTOVER_URL_TEMPLATE.format(CARD_NUMBER=match.group(1))
         card_image = await perform_web_request(PILTOVER_URL_TEMPLATE.format(CARD_NUMBER=card.card_number), fallback_url)

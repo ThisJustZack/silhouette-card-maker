@@ -11,6 +11,7 @@ from plugins.riftbound.infrastructure.PiltoverArchiveImageSearcher import Piltov
 from plugins.riftbound.infrastructure.RiftManaCardSearcher import RiftManaCardSeacher
 from plugins.riftbound.domain.RiftboundCard import RiftboundCard
 from plugins.abstraction_base.domain.Deck import Deck
+from plugins.riftbound.domain.ImageServerSource import ImageServerSource
 
 GAME_NAME = 'riftbound'
 
@@ -21,9 +22,13 @@ class RiftboundDeckFormats(Enum):
 
 class RiftboundPlugin(GamePlugin):
 
-    def __init__(self, format: RiftboundDeckFormats):
+    def __init__(self, format: RiftboundDeckFormats, image_server: ImageServerSource):
         image_cache = ImageCacheAdapter(GAME_NAME)
-        image_search = RiftManaImageSearcher()
+        match image_server:
+            case ImageServerSource.RIFTMANA:
+                image_search = RiftManaImageSearcher()
+            case ImageServerSource.PILTOVER_ARCHIVE:
+                image_search = PiltoverArchiveImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)
         
         match format:

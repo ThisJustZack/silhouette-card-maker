@@ -27,9 +27,10 @@ class RiftManaCardSeacher():
 
         name_response = await perform_web_request(url)
 
-        # Now we can retrieve the card number
-        cards_of_response = name_response.json().get('cards', '')
-        match = findall(r'data-card-id=\\"([^"]+)\\"', cards_of_response)
+        if name_response is not None:
+            # Now we can retrieve the card number
+            cards_of_response = name_response.json().get('cards', '')
+            match = findall(r'data-card-id=\\"([^"]+)\\"', cards_of_response)
 
-        if match:
-            return match.group(1)
+            if match:
+                return match.group(1)

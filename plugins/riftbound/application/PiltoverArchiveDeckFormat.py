@@ -20,7 +20,7 @@ class PiltoverArchiveDeckFormat(DeckFormat[RiftboundCard]):
             name = match.group(2)
 
             return RiftboundCard(
-                id = None,
+                id = name,
                 name = name,
                 quantity = quantity,
                 placements = [index for _ in range(quantity)],

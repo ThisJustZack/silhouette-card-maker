@@ -18,12 +18,12 @@ class RiftManaImageSearcher(ImageSearcherLike[RiftboundCard]):
 
     async def find_image(self, card: RiftboundCard) -> Optional[CardImage]:
 
-        print(card.id)
-        match = self.ALTERNATE_ART_PATTERN.search(card.card_number)
-        fallback_url = None if not match else RIFTMANA_URL_TEMPLATE.format(CARD_NUMBER=match.group(1))
-        card_image = await perform_web_request(RIFTMANA_URL_TEMPLATE.format(CARD_NUMBER=card.card_number), fallback_url)
-    
-        if card_image != None:
-            return CardImage(filename = DEFAULT_IMAGE_CACHE_PATH.format(CARD_ID=card.id),
-                            content_type = DEFAULT_IMAGE_CONTENT_TYPE,
-                            data = card_image.content)
+        if card.id is not None:
+            match = self.ALTERNATE_ART_PATTERN.search(card.id)
+            fallback_url = None if not match else RIFTMANA_URL_TEMPLATE.format(CARD_NUMBER=match.group(1))
+            card_image = await perform_web_request(RIFTMANA_URL_TEMPLATE.format(CARD_NUMBER=card.id), fallback_url)
+        
+            if card_image != None:
+                return CardImage(filename = DEFAULT_IMAGE_CACHE_PATH.format(CARD_ID=card.id),
+                                content_type = DEFAULT_IMAGE_CONTENT_TYPE,
+                                data = card_image.content)

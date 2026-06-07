@@ -33,6 +33,7 @@ class ImageCacheAdapter(ImageCacheLike):
             return None
     
     async def save_cached_image(self, image):
-        cached_image_path = await self.get_cached_image_path_by_filename(image.filename)
-        with open(cached_image_path, 'wb') as image_file:
-            image_file.write(image.data)
+        if image != None:
+            cached_image_path = await self.get_cached_image_path_by_filename(image.filename)
+            with open(cached_image_path, 'wb') as image_file:
+                image_file.write(image.data)
