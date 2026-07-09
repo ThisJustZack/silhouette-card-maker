@@ -17,7 +17,7 @@ Put your decklist into a text file in [game/decklist](../game/decklist/). In thi
 Run the script.
 
 ```sh
-python plugins/yugioh/fetch.py game/decklist/deck.ydk ydk
+python plugins/yugioh/application/fetch.py game/decklist/deck.ydk ydk
 ```
 
 Now you can create the PDF using [`create_pdf.py`](../../README.md#create_pdfpy). You should use `--card_size japanese` for the correct card size.
@@ -70,5 +70,5 @@ ydke://CDfpAQg36QGBAyEEgQMhBOcqwwXnKsMFSIA/AUiAPwFIgD8B/s84AJuTywGbk8sBm5PLATUHg
 You can also use YDKE directly in the command line. Note the single quotes around the YDKE.
 
 ```sh
-python plugins/yugioh/fetch.py 'ydke://...' ydke
+python plugins/yugioh/application/fetch.py 'ydke://...' ydke
 ```
