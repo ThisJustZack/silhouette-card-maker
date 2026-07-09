@@ -17,7 +17,7 @@ Put your decklist into a text file in [game/decklist](../game/decklist/). In thi
 Run the script.
 
 ```sh
-python plugins/star_wars_unlimited/fetch.py game/decklist/deck.txt melee
+python plugins/star_wars_unlimited/application/fetch.py game/decklist/deck.txt melee
 ```
 
 Now you can create the PDF using [`create_pdf.py`](../../README.md#create_pdfpy).
