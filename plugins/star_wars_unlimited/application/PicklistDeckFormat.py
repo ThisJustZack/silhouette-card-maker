@@ -14,8 +14,8 @@ class PicklistDeckFormat(DeckFormat[StarWarsUnlimitedCard]):
         super().__init__()
 
     async def is_card_line_of_format(self, card_line):
-        # Skip empty lines, separator lines (-----), and header lines
         stripped = card_line.strip()
+        # Skip empty lines, separator lines (-----), and header lines
         if not stripped or stripped.startswith('-') or stripped.startswith('Picklist:'):
             return False
         # Skip card ID lines (e.g., "LAW 003, LAW 267")
@@ -28,7 +28,8 @@ class PicklistDeckFormat(DeckFormat[StarWarsUnlimitedCard]):
         if match:
             name = match.group(2).strip()
             title = match.group(3).strip() if match.group(3) else ''
-            quantity = int(match.group(1).strip())
+            quantity_group = int(match.group(1).strip())
+            quantity = quantity_group.count('[ ]') if quantity_group else 1
             return StarWarsUnlimitedCard(
                 id = get_id_for_scm(name = name, title = title),
                 name = name,
