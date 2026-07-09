@@ -5,7 +5,7 @@ from plugins.lorcana.domain.LorcanaCard import LorcanaCard
 
 class DreambornDeckFormat(DeckFormat[LorcanaCard]):
 
-    PATTERN = compile(r'^(\d+)x\s+(.+)$', IGNORECASE) # '{Quantity}x {Name}'
+    PATTERN = compile(r'(\d+)x?\s+(.+)', IGNORECASE) # '{Quantity} {Name}' or '{Quantity}x {Name}'
 
     def __init__(self):
         super().__init__()
@@ -13,7 +13,7 @@ class DreambornDeckFormat(DeckFormat[LorcanaCard]):
     async def is_card_line_of_format(self, card_line):
         return bool(self.PATTERN.match(card_line))
 
-    async def remove_nonalphanumeric(s: str) -> str:
+    async def remove_nonalphanumeric(self, s: str) -> str:
         return sub(r'[^\w]', '', s)
 
     async def extract_card_data_from_card_line(self, card_line, index):
@@ -29,7 +29,7 @@ class DreambornDeckFormat(DeckFormat[LorcanaCard]):
 
             clean_card_name = await self.remove_nonalphanumeric(card_name)
 
-            return Card(
+            return LorcanaCard(
                 id = card_name,
                 clean_name = clean_card_name,
                 name = card_name,

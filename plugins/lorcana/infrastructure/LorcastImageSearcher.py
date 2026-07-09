@@ -20,8 +20,9 @@ class LorcastImageSearcher(ImageSearcherLike[LorcanaCard]):
         print(card.name)
         slugified = sub(r'[^\w]', '+', card.name)
         enchanted_argument = '+rarity:enchanted' if card.enchanted else ''
-        
-        request_response = await perform_web_request(LORCAST_API_URL_TEMPLATE.format(CARD_NAME=slugified, ENCHANTED=enchanted_argument))
+
+        api_url = LORCAST_API_URL_TEMPLATE.format(CARD_NAME=slugified, ENCHANTED=enchanted_argument)
+        request_response = await perform_web_request(api_url)
         
         if request_response != None:
             json_response = request_response.json()
