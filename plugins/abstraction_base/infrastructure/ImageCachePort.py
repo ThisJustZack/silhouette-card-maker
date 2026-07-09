@@ -7,6 +7,7 @@ from plugins.abstraction_base.domain.CardImage import CardImage
 
 DEFAULT_IMAGE_CACHE_PATH = '{CARD_ID}.png'
 DEFAULT_IMAGE_CONTENT_TYPE = 'image/png'
+DEFAULT_IMAGE_FORMAT = 'PNG'
 
 class ImageCacheLike(Protocol):
 
