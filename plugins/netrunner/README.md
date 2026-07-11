@@ -17,7 +17,7 @@ Put your decklist into a text file in [game/decklist](../game/decklist/). In thi
 Run the script.
 
 ```sh
-python plugins/netrunner/fetch.py game/decklist/deck.txt text
+python plugins/netrunner/application/fetch.py game/decklist/deck.txt text
 ```
 
 Now you can create the PDF using [`create_pdf.py`](../../README.md#create_pdfpy).
