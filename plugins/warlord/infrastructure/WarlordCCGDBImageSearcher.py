@@ -14,7 +14,7 @@ WARLORD_CCG_DB_API_URL_TEMPLATE = 'https://warlordccgdb.com/api/cards?search={CA
 WARLORD_CCG_DB_IMAGE_URL_TEMPLATE = 'https://warlordccgdb.com/api/images/{IMAGE_PATH}'
 
 class WarlordCCGDBImageSearcher(ImageSearcherLike[Card]):
-    async def find_image(self, card: Card) -> Optional[CardImage]:
+    async def find_image(self, card: Card, face) -> Optional[CardImage]:
 
         print(card.id)
 

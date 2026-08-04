@@ -11,7 +11,7 @@ from plugins.abstraction_base.infrastructure.WebRequest import perform_web_reque
 ASHES_IMAGE_URL_TEMPLATE = 'https://cdn.ashes.live/images/cards/{CARD_NUMBER}.jpg'
 
 class AshesImageSearcher(ImageSearcherLike[C]):
-    async def find_image(self, card: C) -> Optional[CardImage]:
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         print(card.name, card.id)
 

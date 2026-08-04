@@ -12,7 +12,7 @@ COOKIE_RUN_IMAGE_URL_TEMPLATE = 'https://storage.googleapis.com/cardeio-images/c
 OLD_COOKIE_RUN_IMAGE_URL_TEMPLATE = 'https://storage.googleapis.com/cardeio-images/cookie-run-braverse/cards/small/{CARD_ID}.webp'
 
 class CookieRunImageSearcher(ImageSearcherLike[C]):
-    async def find_image(self, card: C) -> Optional[CardImage]:
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         print(card.name, card.id)
 

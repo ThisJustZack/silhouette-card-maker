@@ -6,7 +6,7 @@ from asyncio import run
 # Add plugin directory to path to allow imports when run as a script
 path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
 
-from plugins.cookie_run_braverse.application.CookieRunPlugin import CookieRunDeckFormats, CookieRunPlugin, URL_DECK_FORMATS
+from plugins.cookie_run_braverse.application.CookieRunPlugin import CookieRunDeckFormats, CookieRunPlugin
 
 @command()
 @argument('deck_path')
@@ -14,11 +14,11 @@ from plugins.cookie_run_braverse.application.CookieRunPlugin import CookieRunDec
 def cli(deck_path: str, format: CookieRunDeckFormats):
     is_deck_a_file: bool = Path(deck_path).exists()
 
-    if not CookieRunDeckFormats(format) in URL_DECK_FORMATS and not is_deck_a_file:
-        print(f'{deck_path} is not a valid file.')
-        return
-    
     plugin = CookieRunPlugin(CookieRunDeckFormats(format))
+
+    if not plugin.is_inline_format and not is_deck_a_file:
+        print(f'{deck_path} is not a valid file.')
+        return   
     
     run(plugin.run(deck_path))
 

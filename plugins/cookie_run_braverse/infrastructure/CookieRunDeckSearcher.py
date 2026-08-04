@@ -16,7 +16,7 @@ class CookieRunDeckSearcher(DeckSearcherLike[Card]):
         return bool(self.URL_PATTERN.match(deck_url))
     
     async def extract_deck_from_url(self, deck_url: str):
-        extracted_deck: Deck[Card] = []
+        extracted_deck: list[Card] = []
 
         match = self.URL_PATTERN.match(deck_url)
         if match:

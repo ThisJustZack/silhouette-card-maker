@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from typing import Optional, Mapping, Any
+from typing import Optional
 from re import sub
-from unicodedata import normalize
 
 from plugins.abstraction_base.domain.Card import Card
 from plugins.abstraction_base.domain.CardImage import CardImage
@@ -12,11 +11,11 @@ from plugins.abstraction_base.infrastructure.ImageSearcherPort import ImageSearc
 from plugins.abstraction_base.infrastructure.StringManipulation import normalize_string
 from plugins.abstraction_base.infrastructure.WebRequest import perform_web_request
 
-NETRUNNERDB_URL_TEMPLATE = 'https://api-preview.netrunnerdb.com/api/v3/public/cards/{CARD_NAME}'
+NETRUNNERDB_URL_TEMPLATE = 'https://api.netrunnerdb.com/api/v3/public/cards/{CARD_NAME}'
 NRO_PROXY_URL_TEMPLATE = 'https://nro-public.s3.nl-ams.scw.cloud/nro/card-printings/v2/webp/english/card/{PRINT_ID}.webp'
 
 class NROProxyImageSearcher(ImageSearcherLike[Card]):
-    async def find_image(self, card: Card) -> Optional[CardImage]:
+    async def find_image(self, card: Card, face) -> Optional[CardImage]:
 
         # Query for card info using a normalized name of Latin scripts
         sanitized   = normalize_string(card.name)

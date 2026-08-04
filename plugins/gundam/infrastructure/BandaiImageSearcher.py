@@ -13,7 +13,7 @@ BANDAI_URL_TEMPLATE = 'https://www.gundam-gcg.com/en/images/cards/card/{CARD_NUM
 
 class BandaiImageSearcher(ImageSearcherLike[Card]):
 
-    async def find_image(self, card: Card) -> Optional[CardImage]:
+    async def find_image(self, card: Card, face) -> Optional[CardImage]:
 
         card_image = await perform_web_request(BANDAI_URL_TEMPLATE.format(CARD_NUMBER=card.id))
     

@@ -6,6 +6,7 @@ from urllib.parse import quote
 from io import BytesIO
 
 from plugins.star_wars_unlimited.domain.StarWarsUnlimitedCard import StarWarsUnlimitedCard
+from plugins.abstraction_base.domain.CardFace import CardFace
 from plugins.abstraction_base.domain.CardImage import CardImage
 from plugins.abstraction_base.infrastructure.ImageCachePort import DEFAULT_IMAGE_CACHE_PATH, DEFAULT_IMAGE_CONTENT_TYPE, DEFAULT_IMAGE_FORMAT
 from plugins.abstraction_base.infrastructure.ImageSearcherPort import ImageSearcherLike
@@ -20,7 +21,7 @@ class SWUDBImageSearcher(ImageSearcherLike[StarWarsUnlimitedCard]):
 
     CARD_ID_PATTERN = compile(r'^(.+)-(.+)$')
 
-    async def find_image(self, card: StarWarsUnlimitedCard) -> Optional[CardImage]:
+    async def find_image(self, card: StarWarsUnlimitedCard, face: Optional[CardFace] = CardFace.FRONT) -> Optional[CardImage]:
 
         title_query = '' if card.title == '' else f' title:"{quote(card.title)}"'
         name_response = await perform_web_request(SWUDB_NAME_URL_TEMPLATE.format(NAME=card.name, TITLE_QUERY=title_query))
@@ -30,7 +31,17 @@ class SWUDBImageSearcher(ImageSearcherLike[StarWarsUnlimitedCard]):
             return
 
         printing = printings[0]
-        card_image = await perform_web_request(SWUDB_ART_URL_TEMPLATE.format(CARD_REF=sub('.+cards/', '', printing.get('frontImagePath'))))
+
+        image_path = ''
+        match face:
+            case CardFace.FRONT:
+                image_path = printing.get('frontImagePath')
+            case CardFace.BACK:
+                image_path = printing.get('backImagePath')
+
+        image_url = SWUDB_ART_URL_TEMPLATE.format(CARD_REF=sub('.+cards/', '', image_path))
+
+        card_image = await perform_web_request(image_url) if image_url and image_path else None
 
         if card_image != None:
             prepared_image = await prepare_for_image_manipulation(card_image.content)

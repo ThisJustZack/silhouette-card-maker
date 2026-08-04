@@ -6,19 +6,19 @@ from asyncio import run
 # Add plugin directory to path to allow imports when run as a script
 path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
 
-from plugins.chrono_core.application.ChronoCorePlugin import ChronoCoreDeckFormats, ChronoCorePlugin, URL_DECK_FORMATS
+from plugins.chrono_core.application.ChronoCorePlugin import ChronoCoreDeckFormats, ChronoCorePlugin
 
 @command()
 @argument('deck_path')
 @argument('format', type=Choice([t.value for t in ChronoCoreDeckFormats], case_sensitive=False))
 def cli(deck_path: str, format: ChronoCoreDeckFormats):
     is_deck_a_file: bool = Path(deck_path).exists()
+
+    plugin = ChronoCorePlugin(ChronoCoreDeckFormats(format))
     
-    if not ChronoCoreDeckFormats(format) in URL_DECK_FORMATS and not is_deck_a_file:
+    if not plugin.is_inline_format and not is_deck_a_file:
         print(f'{deck_path} is not a valid file.')
         return
-    
-    plugin = ChronoCorePlugin(ChronoCoreDeckFormats(format))
     
     run(plugin.run(deck_path))
 

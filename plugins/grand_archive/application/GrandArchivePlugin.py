@@ -14,6 +14,7 @@ class GrandArchiveDeckFormats(Enum):
 class GrandArchivePlugin(GamePlugin):
 
     def __init__(self, format: GrandArchiveDeckFormats):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = GrandArchiveImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)

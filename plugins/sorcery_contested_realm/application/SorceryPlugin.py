@@ -12,13 +12,12 @@ GAME_NAME = 'sorcery_contested_realm'
 class SorceryDeckFormats(Enum):
     CURIOSA_URL = 'curiosa_url'
 
-URL_DECK_FORMATS = [ SorceryDeckFormats.CURIOSA_URL ]
-
 class SorceryPlugin(GamePlugin):
 
-    is_url_format: bool = False
+    inline_deck_formats = [ SorceryDeckFormats.CURIOSA_URL ]
 
     def __init__(self, format: SorceryDeckFormats):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = CuriosaImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)
@@ -27,12 +26,12 @@ class SorceryPlugin(GamePlugin):
             case SorceryDeckFormats.CURIOSA_URL:
                 self.format = CuriosaDeckFormat()
         
-        self.is_url_format = format in URL_DECK_FORMATS
+        self.is_inline_format = format in self.inline_deck_formats
 
     async def parse_deck(self, decklist):
         is_decklist_a_file: bool = Path(decklist).exists()
         
-        if self.is_url_format and not is_decklist_a_file:
+        if self.is_inline_format and not is_decklist_a_file:
             deck_text = decklist
         else:
             with open(decklist, 'r') as deck_file:

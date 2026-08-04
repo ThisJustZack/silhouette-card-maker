@@ -15,7 +15,7 @@ ALTERED_IMAGE_TEMPLATE = 'https://cdn.alteredcore.org/cards/en/{SET}/{CARD_ID}.w
 
 class AlteredImageSearcher(ImageSearcherLike[Card]):
 
-    async def find_image(self, card: Card) -> Optional[CardImage]:
+    async def find_image(self, card: Card, face) -> Optional[CardImage]:
 
         api_response = await perform_web_request(ALTERED_API_TEMPLATE.format(CARD_ID=card.id))
 

@@ -2,7 +2,6 @@ from enum import Enum
 
 from plugins.abstraction_base.application.GamePluginAdapter import GamePlugin
 from plugins.riftbound.application.PiltoverArchiveDeckFormat import PiltoverArchiveDeckFormat
-from plugins.riftbound.application.PixelbornDeckFormat import PixelbornDeckFormat
 from plugins.riftbound.application.TTSDeckFormat import TTSDeckFormat
 from plugins.abstraction_base.infrastructure.CachedImageRepository import CachedImageRepository
 from plugins.abstraction_base.infrastructure.ImageCacheAdapter import ImageCacheAdapter
@@ -17,12 +16,12 @@ GAME_NAME = 'riftbound'
 
 class RiftboundDeckFormats(Enum):
     PILTOVER_ARCHIVE   = 'piltover_archive'
-    PIXELBORN          = 'pixelborn'
     TABLETOP_SIMULATOR = 'tts'
 
 class RiftboundPlugin(GamePlugin):
 
     def __init__(self, format: RiftboundDeckFormats, image_server: ImageServerSource):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         match image_server:
             case ImageServerSource.RIFTMANA:
@@ -34,8 +33,6 @@ class RiftboundPlugin(GamePlugin):
         match format:
             case RiftboundDeckFormats.PILTOVER_ARCHIVE:
                 self.format = PiltoverArchiveDeckFormat()
-            case RiftboundDeckFormats.PIXELBORN:
-                self.format = PixelbornDeckFormat()
             case RiftboundDeckFormats.TABLETOP_SIMULATOR:
                 self.format = TTSDeckFormat()
 

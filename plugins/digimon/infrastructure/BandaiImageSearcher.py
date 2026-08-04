@@ -13,7 +13,7 @@ BANDAI_URL_TEMPLATE = 'https://world.digimoncard.com/images/cardlist/card/{CARD_
 
 class BandaiImageSearcher(ImageSearcherLike[Card]):
 
-    async def find_image(self, card: Card) -> Optional[CardImage]:
+    async def find_image(self, card: Card, face) -> Optional[CardImage]:
 
         card_image = await perform_web_request(BANDAI_URL_TEMPLATE.format(CARD_NUMBER=card.id))
     

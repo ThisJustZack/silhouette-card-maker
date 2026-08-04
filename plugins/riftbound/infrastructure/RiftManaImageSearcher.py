@@ -16,7 +16,7 @@ class RiftManaImageSearcher(ImageSearcherLike[RiftboundCard]):
 
     ALTERNATE_ART_PATTERN = compile(r'^([A-Z0-9]+-\d+)a$')
 
-    async def find_image(self, card: RiftboundCard) -> Optional[CardImage]:
+    async def find_image(self, card: RiftboundCard, face) -> Optional[CardImage]:
 
         if card.id is not None:
             match = self.ALTERNATE_ART_PATTERN.search(card.id)

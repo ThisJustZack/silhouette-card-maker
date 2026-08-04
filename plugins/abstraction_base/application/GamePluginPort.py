@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Protocol
+from enum import Enum
+from typing import Protocol, Optional
 
 from plugins.abstraction_base.domain.Card import C
 from plugins.abstraction_base.domain.Deck import Deck
@@ -11,6 +12,13 @@ class GamePluginLike(Protocol[C]):
 
     format: DeckFormatLike[C]
     image_repository: ImageRepositoryLike[C]
+    has_inline_formats: bool
+    inline_deck_formats: Optional[list[Enum]]
+    is_inline_format: bool
+    has_double_sided_cards: bool
+
+    def __init__(self, has_inline_support: bool, has_double_sided_cards: bool):
+        ...
 
     def parse_deck(self, decklist: str) -> Deck[C]:
         ...

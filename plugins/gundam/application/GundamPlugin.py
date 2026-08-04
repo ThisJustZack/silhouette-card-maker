@@ -20,6 +20,7 @@ class GundamDeckFormats(Enum):
 class GundamPlugin(GamePlugin):
 
     def __init__(self, format: GundamDeckFormats):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = BandaiImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)

@@ -14,7 +14,7 @@ GRAND_ARCHIVE_CARD_URL_TEMPLATE = 'https://api.gatcg.com/cards/{NAME}'
 GRAND_ARCHIVE_CARD_ART_URL_TEMPLATE = 'https://api.gatcg.com/{CARD_ART_SUFFIX}'
 
 class GrandArchiveImageSearcher(ImageSearcherLike[C]):
-    async def find_image(self, card: C) -> Optional[CardImage]:
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         print(card.name)
         sanitized = sub(r'[^A-Za-z0-9 \-]+', '', card.name)
@@ -22,6 +22,7 @@ class GrandArchiveImageSearcher(ImageSearcherLike[C]):
         name_response = await perform_web_request(GRAND_ARCHIVE_CARD_URL_TEMPLATE.format(NAME=slugified))
 
         card_art_suffix = name_response.json().get('editions', [{}])[0].get('image', None)
+        card_art_suffix = card_art_suffix[1:] if card_art_suffix[0] == '/' else card_art_suffix
     
         if card_art_suffix != None:
             card_image = await perform_web_request(GRAND_ARCHIVE_CARD_ART_URL_TEMPLATE.format(CARD_ART_SUFFIX=card_art_suffix))

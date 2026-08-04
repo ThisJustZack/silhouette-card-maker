@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from plugins.abstraction_base.domain.Card import Card, card_placed_by_quantity
+from plugins.abstraction_base.domain.CardFace import CardFace
 from plugins.abstraction_base.infrastructure.ImageRepositoryInterface import ImageRepositoryLike
 from plugins.abstraction_base.infrastructure.ImageCachePort import ImageCacheLike
 from plugins.abstraction_base.infrastructure.ImageSearcherPort import ImageSearcherLike
@@ -11,16 +12,16 @@ class CachedImageRepository(ImageRepositoryLike[Card]):
 		self._cache = cache
 		self._searcher = searcher
 
-	async def get_image(self, card):
-		cached = await self._cache.get_cached_image(card.id)
+	async def get_image(self, card, face = CardFace.FRONT):
+		cached = await self._cache.get_cached_image(card.id, face)
 		if cached is not None:
 			return cached
 
-		found = await self._searcher.find_image(card)
+		found = await self._searcher.find_image(card, face)
 		if found is None:
 			return None
 
-		await self._cache.save_cached_image(found)
+		await self._cache.save_cached_image(found, face)
 		return found
 
 	def save_image(self, card):

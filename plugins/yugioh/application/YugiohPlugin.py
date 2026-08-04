@@ -21,6 +21,7 @@ class YugiohPlugin(GamePlugin):
     is_inline_format: bool = False
 
     def __init__(self, format: YugiohDeckFormats):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = YGOProDeckImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)

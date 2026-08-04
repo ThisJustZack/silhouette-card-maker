@@ -15,7 +15,7 @@ LORCAST_API_URL_TEMPLATE = 'https://api.lorcast.com/v0/cards/search?q={CARD_NAME
 
 class LorcastImageSearcher(ImageSearcherLike[LorcanaCard]):
 
-    async def find_image(self, card: LorcanaCard) -> Optional[CardImage]:
+    async def find_image(self, card: LorcanaCard, face) -> Optional[CardImage]:
 
         print(card.name)
         slugified = sub(r'[^\w]', '+', card.name)

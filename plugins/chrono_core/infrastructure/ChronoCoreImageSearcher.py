@@ -15,7 +15,7 @@ class ChronoCoreImageSearcher(ImageSearcherLike[C]):
 
     CARD_ID_PATTERN = compile(r'^(.+)-(.+)$')
 
-    async def find_image(self, card: C) -> Optional[CardImage]:
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         match = self.CARD_ID_PATTERN.match(card.id)
         if match:

@@ -1,6 +1,6 @@
 # Flesh and Blood Plugin
 
-This plugin reads a decklist, fetches card art from [Fabrary](https://fabrary.net/), and puts the card images into the proper `game/` directories.
+This plugin reads a decklist, fetches card art from [Flesh and Blood's Card Vault](https://cardvault.fabtcg.com/), and puts the card images into the proper `game/` directories.
 
 This plugin supports decklist exports from [Fabrary](https://fabrary.net/). To learn more, see [here](#formats).
 

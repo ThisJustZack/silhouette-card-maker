@@ -52,7 +52,7 @@ _failed_tcg_sets = set()
 _failed_pocket_sets = set()
 
 class PokemonImageSearcher(ImageSearcherLike[PokemonCard]):
-    async def find_image(self, card: PokemonCard) -> Optional[CardImage]:
+    async def find_image(self, card: PokemonCard, face) -> Optional[CardImage]:
 
         print(card.id)
 

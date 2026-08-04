@@ -14,6 +14,7 @@ class CyberpunkDeckFormats(Enum):
 class CyberpunkPlugin(GamePlugin):
 
     def __init__(self, format: CyberpunkDeckFormats):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = CyberpunkImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)

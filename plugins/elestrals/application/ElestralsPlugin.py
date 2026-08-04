@@ -14,6 +14,7 @@ class ElestralsDeckFormats(Enum):
 class ElestralsPlugin(GamePlugin):
 
     def __init__(self, format: ElestralsDeckFormats):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = ElestralsImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)

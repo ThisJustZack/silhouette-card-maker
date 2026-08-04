@@ -15,7 +15,7 @@ from plugins.abstraction_base.infrastructure.WebRequest import perform_web_reque
 FLESH_AND_BLOOD_API_URL_TEMPLATE = 'https://api.cardvault.fabtcg.com/carddb/api/v1/advanced-search/?name={CARD_NAME}{PITCH}'
 
 class FleshAndBloodImageSearcher(ImageSearcherLike[FleshAndBloodCard]):
-    async def find_image(self, card: FleshAndBloodCard) -> Optional[CardImage]:
+    async def find_image(self, card: FleshAndBloodCard, face) -> Optional[CardImage]:
 
         print(card.name)
         sanitized = sub(r'[^A-Za-z0-9 ]+', '', card.name)
@@ -28,7 +28,7 @@ class FleshAndBloodImageSearcher(ImageSearcherLike[FleshAndBloodCard]):
             json_response = request_response.json()
             card_from_response: Mapping[str, Any] = json_response.get('results')[0] if len(json_response.get('results')) > 0 else {}
 
-            image_url = card_from_response.get('faces', [{}])[0].get('image', {}).get('normal', None)
+            image_url = card_from_response.get('faces', [{}])[0].get('image', {}).get('large', None)
 
             if image_url != None:
                 card_image = await perform_web_request(image_url)

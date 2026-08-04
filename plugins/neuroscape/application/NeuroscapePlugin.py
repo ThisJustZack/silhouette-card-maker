@@ -16,6 +16,7 @@ class NeuroscapeDeckFormats(Enum):
 class NeuroscapePlugin(GamePlugin):
 
     def __init__(self, format: NeuroscapeDeckFormats):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = NeuroscapeImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)

@@ -11,7 +11,7 @@ from plugins.abstraction_base.infrastructure.WebRequest import perform_web_reque
 
 class CuriosaImageSearcher(ImageSearcherLike[SorceryCard]):
 
-    async def find_image(self, card: SorceryCard) -> Optional[CardImage]:
+    async def find_image(self, card: SorceryCard, face) -> Optional[CardImage]:
 
         if card.variant_image_url is not None:
             card_image = await perform_web_request(card.variant_image_url)

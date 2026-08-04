@@ -6,7 +6,7 @@ from asyncio import run
 # Add plugin directory to path to allow imports when run as a script
 path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
 
-from plugins.ashes_reborn.application.AshesRebornPlugin import AshesRebornDeckFormats, AshesRebornPlugin, URL_DECK_FORMATS
+from plugins.ashes_reborn.application.AshesRebornPlugin import AshesRebornDeckFormats, AshesRebornPlugin
 from plugins.ashes_reborn.domain.ImageServerSource import ImageServerSource
 
 @command()
@@ -16,11 +16,11 @@ from plugins.ashes_reborn.domain.ImageServerSource import ImageServerSource
 def cli(deck_path: str, format: AshesRebornDeckFormats, source: ImageServerSource):
     is_deck_a_file: bool = Path(deck_path).exists()
 
-    if not AshesRebornDeckFormats(format) in URL_DECK_FORMATS and not is_deck_a_file:
+    plugin = AshesRebornPlugin(AshesRebornDeckFormats(format), ImageServerSource(source))
+
+    if not plugin.is_inline_format and not is_deck_a_file:
         print(f'{deck_path} is not a valid file.')
         return
-    
-    plugin = AshesRebornPlugin(AshesRebornDeckFormats(format), ImageServerSource(source))
     
     run(plugin.run(deck_path))
 

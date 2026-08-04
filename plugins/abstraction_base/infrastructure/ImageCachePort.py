@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Protocol, Optional
 
+from plugins.abstraction_base.domain.CardFace import CardFace
 from plugins.abstraction_base.domain.CardImage import CardImage
 
 DEFAULT_IMAGE_CACHE_PATH = '{CARD_ID}.png'
@@ -14,9 +15,9 @@ class ImageCacheLike(Protocol):
 	game: str
 	cache_path: Path
 
-	async def get_cached_image(self, card_id: str) -> Optional[CardImage]:
+	async def get_cached_image(self, card_id: str, face: CardFace = CardFace.FRONT) -> Optional[CardImage]:
 		...
 
-	async def save_cached_image(self, image: CardImage) -> None:
+	async def save_cached_image(self, image: CardImage, face: CardFace = CardFace.FRONT) -> None:
 		...
 		

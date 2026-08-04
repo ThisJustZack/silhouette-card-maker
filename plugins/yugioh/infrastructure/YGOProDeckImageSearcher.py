@@ -11,9 +11,7 @@ from plugins.abstraction_base.infrastructure.WebRequest import perform_web_reque
 YGOPRODECK_URL_TEMPLATE = 'https://images.ygoprodeck.com/images/cards/{PASSCODE}.jpg'
 
 class YGOProDeckImageSearcher(ImageSearcherLike[C]):
-    async def find_image(self, card: C) -> Optional[CardImage]:
-
-        print(card.id)
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         image_url = YGOPRODECK_URL_TEMPLATE.format(PASSCODE=card.id)
 

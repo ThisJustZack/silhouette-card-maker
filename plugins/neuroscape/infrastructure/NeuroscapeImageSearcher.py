@@ -21,7 +21,7 @@ NEUROSCAPE_PAYLOAD_TEMPLATE = {
 }
 
 class NeuroscapeImageSearcher(ImageSearcherLike[C]):
-    async def find_image(self, card: C) -> Optional[CardImage]:
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         request_headers = DEFAULT_WEB_HEADERS
         request_headers['referer'] = NEUROSCAPE_REFERER

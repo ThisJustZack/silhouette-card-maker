@@ -16,13 +16,12 @@ class ChronoCoreDeckFormats(Enum):
     TEXT        = 'text'
     JSON        = 'json'
 
-URL_DECK_FORMATS = [ ChronoCoreDeckFormats.SLEEVED_URL ]
-
 class ChronoCorePlugin(GamePlugin):
 
-    is_url_format: bool = False
+    inline_deck_formats = [ ChronoCoreDeckFormats.SLEEVED_URL ]
 
     def __init__(self, format: ChronoCoreDeckFormats):
+        super().__init__(has_inline_support=True)
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = ChronoCoreImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)
@@ -35,12 +34,12 @@ class ChronoCorePlugin(GamePlugin):
             case ChronoCoreDeckFormats.JSON:
                 self.format = JSONDeckFormat()
         
-        self.is_url_format = format in URL_DECK_FORMATS
+        self.is_inline_format = format in self.inline_deck_formats
 
     async def parse_deck(self, decklist):
         is_decklist_a_file: bool = Path(decklist).exists()
         
-        if self.is_url_format and not is_decklist_a_file:
+        if self.is_inline_format and not is_decklist_a_file:
             deck_text = decklist
         else:
             with open(decklist, 'r') as deck_file:

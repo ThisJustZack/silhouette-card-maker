@@ -4,10 +4,15 @@ from asyncio import gather, to_thread
 from collections import OrderedDict
 
 from plugins.abstraction_base.domain.Card import Card
+from plugins.abstraction_base.domain.CardFace import CardFace
 from plugins.abstraction_base.domain.Deck import Deck
 from plugins.abstraction_base.application.GamePluginPort import GamePluginLike
 
 class GamePlugin(GamePluginLike[Card]):
+
+    def __init__(self, has_inline_support = False, has_double_sided_cards = False):
+        self.has_inline_formats = has_inline_support
+        self.has_double_sided_cards = has_double_sided_cards
 
     async def parse_deck(self, decklist: str):
         original_deck: Deck[Card] = await self.format.parse_decklist(decklist)
@@ -37,7 +42,9 @@ class GamePlugin(GamePluginLike[Card]):
 
         for card in deck.cards:
             image_card: Card = card
-            image_card.front_image = await self.image_repository.get_image(card)
+            image_card.front_image = await self.image_repository.get_image(card, CardFace.FRONT)
+            if self.has_double_sided_cards:
+                image_card.back_image = await self.image_repository.get_image(card, CardFace.BACK)
             cards_of_image_deck.append(card)
 
         return Deck(cards=cards_of_image_deck)

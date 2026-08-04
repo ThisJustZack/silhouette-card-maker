@@ -11,11 +11,11 @@ from plugins.abstraction_base.infrastructure.WebRequest import perform_web_reque
 ASHESDB_IMAGE_URL_TEMPLATE = 'https://ashesdb-media.plaidhatgames.com/images/new-cards/{CARD_NUMBER}.jpg'
 
 class AshesDBImageSearcher(ImageSearcherLike[C]):
-    async def find_image(self, card: C) -> Optional[CardImage]:
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         print(card.name, card.id)
 
-        image_url = ASHES_IMAGE_URL_TEMPLATE.format(CARD_NUMBER=card.id)
+        image_url = ASHESDB_IMAGE_URL_TEMPLATE.format(CARD_NUMBER=card.id)
         card_image = await perform_web_request(image_url)
 
         return CardImage(filename = DEFAULT_IMAGE_CACHE_PATH.format(CARD_ID=card.id),

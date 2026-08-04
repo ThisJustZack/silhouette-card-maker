@@ -16,6 +16,7 @@ class EchoesOfAstraDeckFormats(Enum):
 class EchoesOfAstraPlugin(GamePlugin):
 
     def __init__(self, format: EchoesOfAstraDeckFormats):
+        super().__init__()
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = EchoesOfAstraImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)

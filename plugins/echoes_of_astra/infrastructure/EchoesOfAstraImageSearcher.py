@@ -13,7 +13,7 @@ ECHOES_OF_ASTRA_URL = 'https://api.echoesofastra.com/getallcards?allowPrivate=fa
 
 class EchoesOfAstraImageSearcher(ImageSearcherLike[Card]):
 
-    async def find_image(self, card: Card) -> Optional[CardImage]:
+    async def find_image(self, card: Card, face) -> Optional[CardImage]:
 
         # This is likely better to have as a method within the image cacher, on instantiation then fallback to this
 

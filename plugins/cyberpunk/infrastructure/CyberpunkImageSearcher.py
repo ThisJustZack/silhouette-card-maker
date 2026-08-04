@@ -14,7 +14,7 @@ from plugins.abstraction_base.infrastructure.WebRequest import perform_web_reque
 CYBERPUNK_API_URL_TEMPLATE = 'https://api.netdeck.gg/api/cards/cyberpunk?q=n:\"{CARD_NAME}\"&limit=60&offset=0'
 
 class CyberpunkImageSearcher(ImageSearcherLike[C]):
-    async def find_image(self, card: C) -> Optional[CardImage]:
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         print(card.name)
 		# Replace whitespace with + (ex. 'V - Streetkid', 'Royce - Psycho on the Edge', 'T-Bug - Amateur Philosopher')

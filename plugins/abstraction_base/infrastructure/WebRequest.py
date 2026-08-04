@@ -17,6 +17,8 @@ class PayloadType(Enum):
 DEFAULT_WEB_HEADERS: Mapping[str, str] = {'user-agent': 'silhouette-card-maker/0.1', 'accept': '*/*'}
 DEFAULT_PAYLOAD: Mapping[str, Any] = {}
 
+SESSION = AsyncClient()
+
 async def perform_web_request(request_url: str,
                               fallback_url: Optional[str] = None,
                               request_type: WebRequestType = WebRequestType.GET, 
@@ -32,9 +34,8 @@ async def perform_web_request(request_url: str,
         kwargs[request_payload_type.value] = request_payload
 
     try:
-        async with AsyncClient(timeout=10.0, follow_redirects=True) as client:
-            r = await client.request(request_type.value, request_url, **kwargs)
-            r.raise_for_status()
+        r = await SESSION.request(request_type.value, request_url, **kwargs)
+        r.raise_for_status()
     except HTTPStatusError as error:
         if fallback_url is None:
             print(f'{error} HTTP Error at {request_url}')

@@ -18,6 +18,7 @@ class StarWarsUnlimitedDeckFormats(Enum):
 class StarWarsUnlimitedPlugin(GamePlugin):
 
     def __init__(self, format: StarWarsUnlimitedDeckFormats):
+        super().__init__(has_double_sided_cards=True)
         image_cache = ImageCacheAdapter(GAME_NAME)
         image_search = SWUDBImageSearcher()
         self.image_repository = CachedImageRepository(image_cache, image_search)
@@ -29,6 +30,8 @@ class StarWarsUnlimitedPlugin(GamePlugin):
                 self.format = PicklistDeckFormat()
             case StarWarsUnlimitedDeckFormats.SWUDBJSON:
                 self.format = SWUDBJSONDeckFormat()
+
+        print(self.has_double_sided_cards)
 
     async def parse_deck(self, decklist):
         with open(decklist, 'r') as deck_file:

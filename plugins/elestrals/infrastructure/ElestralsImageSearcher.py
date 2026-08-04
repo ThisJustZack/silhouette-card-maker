@@ -14,7 +14,7 @@ ELESTRALS_URL_TEMPLATE = 'https://collect.elestrals.com/cards/{CARD_ID}'
 ELESTRALS_IMAGE_PATTERN = r'https://res\.cloudinary\.com/drmapg0vi/image/upload/[^"\'<> ]+'
 
 class ElestralsImageSearcher(ImageSearcherLike[C]):
-    async def find_image(self, card: C) -> Optional[CardImage]:
+    async def find_image(self, card: C, face) -> Optional[CardImage]:
 
         print(card.id)
 
