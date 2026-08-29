@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Optional
 
 from plugins.bushiroad.domain.BushiroadCard import BushiroadCard
+from plugins.abstraction_base.domain.CardFace import CardFace
 from plugins.abstraction_base.domain.CardImage import CardImage
 from plugins.abstraction_base.infrastructure.ImageCachePort import DEFAULT_IMAGE_CACHE_PATH, DEFAULT_IMAGE_CONTENT_TYPE
 from plugins.abstraction_base.infrastructure.ImageSearcherPort import ImageSearcherLike
@@ -15,21 +16,27 @@ BUSHIROAD_GAME_IMAGE_URL_MAPPING = {
     BushiroadGameTitle.WEISS_SCHWARZ: 'https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/{CARD_IMAGE}',
     BushiroadGameTitle.SHADOWVERSE_EVOLVE: 'https://en.shadowverse-evolve.com/wordpress/wp-content/images/cardlist/{CARD_IMAGE}',
     BushiroadGameTitle.GODZILLA: 'https://en.godzilla-cardgame.com/wordpress/wp-content/images/cardlist/{CARD_IMAGE}',
-    BushiroadGameTitle.HOLOLIVE: 'https://en.hololive-official-cardgame.com/wp-content/images/cardlist/{CARD_IMAGE}'
+    BushiroadGameTitle.HOLOLIVE: 'https://en.hololive-official-cardgame.com/wp-content/images/cardlist/{CARD_IMAGE}',
+    BushiroadGameTitle.PALWORLD: 'https://en.palworld-official-cardgame.com/wordpress/wp-content/images/cardlist/{CARD_IMAGE}'
 }
 
 class BushiroadImageSearcher(ImageSearcherLike[BushiroadCard]):
 
-    async def find_image(self, card: BushiroadCard) -> Optional[CardImage]:
+    async def find_image(self, card: BushiroadCard, face: CardFace) -> Optional[CardImage]:
 
         image_url_template = BUSHIROAD_GAME_IMAGE_URL_MAPPING.get(card.bushiroad_game)
 
         if image_url_template is None:
             return
-        
-        image_url = image_url_template.format(CARD_IMAGE=card.front_image_url)
 
-        card_image = await perform_web_request(image_url)
+        image_url = ''
+        match face:
+            case CardFace.FRONT:
+                image_url = image_url_template.format(CARD_IMAGE=card.front_image_url) if card.front_image_url else None
+            case CardFace.BACK:
+                image_url = image_url_template.format(CARD_IMAGE=card.back_image_url) if card.back_image_url else None
+
+        card_image = await perform_web_request(image_url) if image_url else None
 
         if card_image != None:
             return CardImage(filename = DEFAULT_IMAGE_CACHE_PATH.format(CARD_ID=card.id),

@@ -8,6 +8,7 @@ class BushiroadGameTitle(str, Enum):
     SHADOWVERSE_EVOLVE = 'Shadowverse: Evolve'
     GODZILLA           = 'Godzilla'
     HOLOLIVE           = 'Hololive'
+    PALWORLD           = 'Palworld'
 
 BUSHIROAD_GAME_TITLE_ID_MAPPING = {
     '1': BushiroadGameTitle.CARDFIGHT_VANGUARD,
@@ -15,4 +16,5 @@ BUSHIROAD_GAME_TITLE_ID_MAPPING = {
     '6': BushiroadGameTitle.SHADOWVERSE_EVOLVE,
     '7': BushiroadGameTitle.GODZILLA,
     '8': BushiroadGameTitle.HOLOLIVE,
+    '9': BushiroadGameTitle.PALWORLD,
 }

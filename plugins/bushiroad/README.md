@@ -44,5 +44,5 @@ https://decklog-en.bushiroad.com/view/1HF6L
 You can also use a Bushiroad Deck Log URL directly in the command line.
 
 ```sh
-python plugins/bushiroad/fetch.py https://decklog-en.bushiroad.com/view/5ZJ74 bushiroad_url
+python plugins/bushiroad/application/fetch.py https://decklog-en.bushiroad.com/view/5ZJ74 bushiroad_url
 ```
