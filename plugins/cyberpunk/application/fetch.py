@@ -12,11 +12,13 @@ from plugins.cyberpunk.application.CyberpunkPlugin import CyberpunkDeckFormats, 
 @argument('deck_path')
 @argument('format', type=Choice([t.value for t in CyberpunkDeckFormats], case_sensitive=False))
 def cli(deck_path: str, format: CyberpunkDeckFormats):
-    if not Path(deck_path).exists():
+    is_deck_a_file: bool = Path(deck_path).exists()
+
+    plugin = CyberpunkPlugin(CyberpunkDeckFormats(format))
+    
+    if not plugin.is_inline_format and not is_deck_a_file:
         print(f'{deck_path} is not a valid file.')
         return
-    
-    plugin = CyberpunkPlugin(CyberpunkDeckFormats(format))
     
     run(plugin.run(deck_path))
 

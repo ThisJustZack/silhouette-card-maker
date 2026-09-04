@@ -11,29 +11,20 @@ from plugins.abstraction_base.infrastructure.ImageSearcherPort import ImageSearc
 
 from plugins.abstraction_base.infrastructure.WebRequest import perform_web_request
 
-CYBERPUNK_API_URL_TEMPLATE = 'https://api.netdeck.gg/api/cards/cyberpunk?q=n:\"{CARD_NAME}\"&limit=60&offset=0'
+CYBERPUNK_API_URL_TEMPLATE = 'https://api.netdeck.gg/api/cards/cyberpunk/{CARD_NAME}?printing={CARD_ID}'
 
 class CyberpunkImageSearcher(ImageSearcherLike[C]):
     async def find_image(self, card: C, face) -> Optional[CardImage]:
-
-        print(card.name)
-		# Replace whitespace with + (ex. 'V - Streetkid', 'Royce - Psycho on the Edge', 'T-Bug - Amateur Philosopher')
-        slugified = sub(r'\s+', '+', card.name)
         
-        request_response = await perform_web_request(CYBERPUNK_API_URL_TEMPLATE.format(CARD_NAME=slugified))
-        
-        if request_response != None:
-            json_response = request_response.json()
-            card_from_response: Mapping[str, Any] = json_response.get('items')[0] if len(json_response.get('items')) > 0 else {}
+        card_response = await perform_web_request(CYBERPUNK_API_URL_TEMPLATE.format(CARD_NAME=card.name, CARD_ID=card.id))
 
-            print_number = card_from_response.get('print_number')
-            image_url = card_from_response.get('image_url')
 
-            card.id = card.id if card.id != None else f'{normalize('NFD', print_number).upper()}'
+        if card_response != None:
+            json_of_response = card_response.json()
 
-            if image_url != None:
-                card_image = await perform_web_request(image_url)
+            card_image = await perform_web_request(json_of_response.get('image_url'))
 
+            if card_image != None:
                 return CardImage(filename = DEFAULT_IMAGE_CACHE_PATH.format(CARD_ID=card.id),
                                 content_type = DEFAULT_IMAGE_CONTENT_TYPE,
                                 data = card_image.content)
